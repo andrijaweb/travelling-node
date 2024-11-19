@@ -19,14 +19,14 @@ const userSchema = new mongoose.Schema({
   },
   password: {
     type: String,
-    required: [true, 'Please provide a password'],
+    required: [true, 'Please should contain at least 8 characters.'],
     minlength: 8,
   },
   passwordConfirm: {
     type: String,
     required: [true, 'Please confirm your password'],
     validate: {
-      // This only works on CREATE and SAVE! ! !
+      // Only working for 'save' and 'create' -> e.g. const newUser = await User.----->create<------(req.body);
       validator: function (el) {
         return el === this.password;
       },
