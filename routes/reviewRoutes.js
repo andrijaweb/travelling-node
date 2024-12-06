@@ -18,10 +18,6 @@ router
   .get(getAllReviews)
   .post(protect, restrictTo('user'), createReview);
 
-router
-  .route('/:id')
-  .get(getReview)
-  .patch(updateReview)
-  .delete(protect, restrictTo('admin', 'lead-guide'), deleteReview);
+router.route('/:id').get(getReview).patch(updateReview).delete(deleteReview);
 
 module.exports = router;
