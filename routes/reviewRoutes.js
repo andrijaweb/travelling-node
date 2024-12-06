@@ -8,7 +8,10 @@ const {
   deleteReview,
 } = require('../controllers/reviewController');
 
-const router = express.Router();
+const router = express.Router({ mergeParams: true });
+
+// POST /tour/234fda4/reviews
+// POST /reviews
 
 router
   .route('/')
