@@ -15,7 +15,7 @@ const reviewSchema = new mongoose.Schema(
     },
     createdAt: {
       type: Date,
-      default: Date.now(),
+      default: Date.now,
     },
     tour: {
       type: mongoose.Schema.ObjectId,
@@ -33,6 +33,8 @@ const reviewSchema = new mongoose.Schema(
     toObject: { virtuals: true },
   }
 );
+
+reviewSchema.index({ tour: 1, user: 1 }, { unique: true });
 
 reviewSchema.pre(/^find/, function (next) {
   this.populate({
@@ -77,14 +79,16 @@ reviewSchema.post('save', function () {
 });
 
 reviewSchema.pre(/^findOneAnd/, async function (next) {
-  this.r = await this.findOne();
-  console.log(r);
+  this.r = await this.model.findOne(this.getQuery());
+  console.log(this.r);
 
   next();
 });
 
 reviewSchema.post(/^findOneAnd/, async function () {
-  await this.r.constructor.calcAverageRatings(this.r.tour);
+  if (this.r) {
+    await this.r.constructor.calcAverageRatings(this.r.tour);
+  }
 });
 
 const Review = mongoose.model('Review', reviewSchema);
