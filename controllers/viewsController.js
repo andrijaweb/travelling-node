@@ -21,10 +21,9 @@ exports.getTour = catchAsync(async (req, res) => {
   });
 
   // 2) Build template
-
   // 3) Render template using data from 1)
   res.status(200).render('tour', {
-    title: 'Tour',
+    title: `${tour.name} tour`,
     tour,
   });
 });
