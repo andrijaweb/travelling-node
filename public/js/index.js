@@ -23,7 +23,12 @@ if (updateUserDataForm)
   updateUserDataForm.addEventListener('submit', (e) => {
     e.preventDefault();
 
-    updateSettings({ name: name.value, email: email.value }, 'data');
+    const form = new FormData();
+    form.append('name', name.value);
+    form.append('email', email.value);
+    form.append('photo', document.getElementById('photo').files[0]);
+
+    updateSettings(form, 'data');
   });
 
 if (updateUserPasswordForm)
